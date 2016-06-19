@@ -36,9 +36,13 @@ chrome.webRequest.onHeadersReceived.addListener(function (details) {
 
     if (lastRequest.from == originalUrl && lastRequest.to == toURL) {
         lastRequest.count++;
-        if (lastRequest.count >= maxTries && blackListSite.indexOf(toSite) < 0) {       // Not-allow black-listed site to bypass this check
-            console.info("Allowed:", fromSite, "redirected to", toSite, "(tried " + lastRequest.count + " times)")
-            return {};
+        if (lastRequest.count >= maxTries) {
+            if (blackListSite.indexOf(toSite) < 0) {       // Not-allow black-listed site to bypass this check
+                return { cancel: true };
+            } else {
+                console.info("Allowed:", fromSite, "redirected to", toSite, "(tried " + lastRequest.count + " times)")
+                return {};
+            }
         } else {
             return { redirectUrl: originalUrl };
         }
