@@ -1,0 +1,14 @@
+{
+   "description": "中国移动 HTTP 劫持拦截器",
+   "background": {
+      "page": "background.htm"
+   },
+   "content_scripts": [],
+   "icons": {
+      "128": "images/icon.png"
+   },
+   "manifest_version": 2,
+   "name": "干他妈的中国移动",
+   "permissions": [ "webRequest", "webRequestBlocking", "<all_urls>", "notifications" ],
+   "version": "0.0.0.1"
+}
