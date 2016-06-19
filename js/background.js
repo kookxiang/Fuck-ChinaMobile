@@ -9,8 +9,12 @@ var pollutionSites = [
     "z.cn"
 ];
 var blackListSite = [
+    "72hui.com",
+    "72link.com",
     "798zs.net",
     "linktech.cn",
+    "shuyang5.com",
+    "sun-ying.com",
     "yiqifa.com"
 ];
 var whiteListSite = [];     // Reserved
@@ -32,7 +36,7 @@ chrome.webRequest.onHeadersReceived.addListener(function (details) {
 
     if (lastRequest.from == originalUrl && lastRequest.to == toURL) {
         lastRequest.count++;
-        if (lastRequest.count >= maxTries) {
+        if (lastRequest.count >= maxTries && blackListSite.indexOf(toSite) < 0) {       // Not-allow black-listed site to bypass this check
             console.info("Allowed:", fromSite, "redirected to", toSite, "(tried " + lastRequest.count + " times)")
             return {};
         } else {
